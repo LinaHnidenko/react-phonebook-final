@@ -15,6 +15,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from 'redux/auth/operations';
 
 const pages = ['Home', 'Contacts', 'SignUp'];
 
@@ -31,6 +33,9 @@ const theme = createTheme({
 });
 
 export const Header = () => {
+  const user = useSelector(state => state.auth.user);
+  const isAuth = useSelector(state => state.auth.token);
+  const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = event => {
@@ -41,6 +46,9 @@ export const Header = () => {
     setAnchorElNav(null);
   };
 
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static" sx={{ mb: 20 }}>
@@ -140,14 +148,41 @@ export const Header = () => {
               ))}
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            {/* <Box sx={{ flexGrow: 0 }}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 <NavLink to="/login">Login</NavLink>
               </Button>
-            </Box>
+            </Box> */}
+            {isAuth ? (
+              <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {user.email}
+                </Button>
+                <NavLink to={'/'}>
+                  <Button
+                    onClick={handleLogOut}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    Log Out
+                  </Button>
+                </NavLink>
+              </Box>
+            ) : (
+              <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  <NavLink to={'/login'}>Login</NavLink>
+                </Button>
+              </Box>
+            )}
           </Toolbar>
         </Container>
       </AppBar>

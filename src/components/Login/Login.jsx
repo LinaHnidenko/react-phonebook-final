@@ -1,12 +1,18 @@
 import { Button, TextField } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logIn } from 'redux/auth/operations';
 
 export const Login = () => {
+  const isAuth = useSelector(state => state.auth.token);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    isAuth && navigate('/contacts');
+  }, [isAuth, navigate]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -16,7 +22,7 @@ export const Login = () => {
         password: e.target.elements.password.value,
       })
     );
-    navigate('/contacts');
+    // navigate('/contacts');
   };
 
   return (
