@@ -1,15 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { logOut } from 'redux/auth/operations';
 
 export const UserMenu = () => {
   const email = useSelector(state => state.auth.user.email);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
   const handleLogOut = () => {
     dispatch(logOut());
-    navigate('/');
   };
   return (
     <div>

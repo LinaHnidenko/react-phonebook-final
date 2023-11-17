@@ -15,6 +15,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from 'redux/auth/operations';
 
 const pages = ['Home', 'Contacts', 'UserMenu', 'SignUp', 'Login'];
 
@@ -31,7 +33,14 @@ const theme = createTheme({
 });
 
 export const Header = () => {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const [anchorElNav, setAnchorElNav] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -94,19 +103,25 @@ export const Header = () => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map(page => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <NavLink
-                      to={
-                        page.toLocaleLowerCase() === 'home'
-                          ? '/'
-                          : `/${page.toLocaleLowerCase()}`
-                      }
-                    >
-                      <Typography textAlign="center">{page}</Typography>
-                    </NavLink>
-                  </MenuItem>
-                ))}
+                {pages.map(page =>
+                  isLoggedIn && page.toLowerCase() === 'login' ? (
+                    <MenuItem onClick={handleLogOut}>
+                      <Typography textAlign="center">Log Out</Typography>
+                    </MenuItem>
+                  ) : (
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <NavLink
+                        to={
+                          page.toLocaleLowerCase() === 'home'
+                            ? '/'
+                            : `/${page.toLocaleLowerCase()}`
+                        }
+                      >
+                        <Typography textAlign="center">{page}</Typography>
+                      </NavLink>
+                    </MenuItem>
+                  )
+                )}
               </Menu>
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -129,23 +144,34 @@ export const Header = () => {
               PhoneBook
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map(page => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  <NavLink
-                    to={
-                      page.toLocaleLowerCase() === 'home'
-                        ? '/'
-                        : `/${page.toLocaleLowerCase()}`
-                    }
+              {pages.map(page =>
+                isLoggedIn && page.toLowerCase() === 'login' ? (
+                  <>
+                    <Button
+                      onClick={handleLogOut}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      Log Out
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
                   >
-                    {page}
-                  </NavLink>
-                </Button>
-              ))}
+                    <NavLink
+                      to={
+                        page.toLocaleLowerCase() === 'home'
+                          ? '/'
+                          : `/${page.toLocaleLowerCase()}`
+                      }
+                    >
+                      {page}
+                    </NavLink>
+                  </Button>
+                )
+              )}
             </Box>
 
             {/* <Box sx={{ flexGrow: 0 }}>
