@@ -2,8 +2,8 @@ import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix';
 import { selectContacts } from 'redux/selectors';
-import { nanoid } from '@reduxjs/toolkit';
-import { createContacts } from 'redux/operations/operations';
+
+import { createContacts } from 'redux/contacts/operations/operations';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -11,28 +11,24 @@ export const ContactForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const nameValue = e.target.name.value;
-    const numberValue = e.target.number.value;
+    const name = e.target.name.value;
+    const number = e.target.number.value;
 
-    if (nameValue) {
+    if (name) {
       const existingContact = contacts.find(contact => {
         if (contact.name) {
-          return contact.name.toLowerCase() === nameValue.toLowerCase();
+          return contact.name.toLowerCase() === name.toLowerCase();
         }
         return false;
       });
 
       if (existingContact) {
-        Notify.info(`${nameValue} is already in your contacts`);
+        Notify.info(`${name} is already in your contacts`);
         return;
       }
     }
-    const newContact = {
-      id: nanoid(),
-      name: nameValue,
-      phone: numberValue,
-    };
-    dispatch(createContacts(newContact));
+
+    dispatch(createContacts({ name, number }));
     e.target.reset();
   };
   return (

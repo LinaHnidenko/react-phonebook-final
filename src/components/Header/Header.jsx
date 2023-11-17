@@ -105,7 +105,7 @@ export const Header = () => {
               >
                 {pages.map(page =>
                   isLoggedIn && page.toLowerCase() === 'login' ? (
-                    <MenuItem onClick={handleLogOut}>
+                    <MenuItem onClick={handleLogOut} key={page}>
                       <Typography textAlign="center">Log Out</Typography>
                     </MenuItem>
                   ) : (
@@ -146,14 +146,13 @@ export const Header = () => {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map(page =>
                 isLoggedIn && page.toLowerCase() === 'login' ? (
-                  <>
-                    <Button
-                      onClick={handleLogOut}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                      Log Out
-                    </Button>
-                  </>
+                  <Button
+                    key={page}
+                    onClick={handleLogOut}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    Log Out
+                  </Button>
                 ) : (
                   <Button
                     key={page}

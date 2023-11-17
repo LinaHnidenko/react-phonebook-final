@@ -5,13 +5,13 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { logIn } from 'redux/auth/operations';
 
 export const Login = () => {
-  const isAuth = useSelector(state => state.auth.token);
+  // const isAuth = useSelector(state => state.auth.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    isAuth && navigate('/contacts');
-  }, [isAuth, navigate]);
+  // useEffect(() => {
+  //   isAuth && navigate('/contacts');
+  // }, [isAuth, navigate]);
 
   const handleSubmit = e => {
     e.preventDefault();

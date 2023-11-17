@@ -1,9 +1,9 @@
 import { Notify } from 'notiflix';
 import { useDispatch } from 'react-redux';
-import { deleteContacts } from 'redux/operations/operations';
+import { deleteContacts } from 'redux/contacts/operations/operations';
 import css from './ContactListItem.module.css';
 
-export const ContactListItem = ({ name, phone, id }) => {
+export const ContactListItem = ({ name, number, id }) => {
   const dispatch = useDispatch();
 
   const onRemoveContact = id => {
@@ -13,7 +13,7 @@ export const ContactListItem = ({ name, phone, id }) => {
 
   return (
     <li key={id} className={css.item}>
-      {name}: {phone}&nbsp;&nbsp;
+      {name}: {number}&nbsp;&nbsp;
       <button className={css.deletebtn} onClick={() => onRemoveContact(id)}>
         Delete
       </button>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/operations/operations';
+import { getContacts } from 'redux/contacts/operations/operations';
 import {
   selectContacts,
   selectError,
@@ -35,8 +35,10 @@ export const ContactList = () => {
       {isLoading && <p>Loading...</p>}
       {error && <p>Error!</p>}
       <ul className={css.list}>
-        {filteredContacts.map(({ name, phone, id }) => {
-          return <ContactListItem key={id} id={id} name={name} phone={phone} />;
+        {filteredContacts.map(({ name, number, id }) => {
+          return (
+            <ContactListItem key={id} id={id} name={name} number={number} />
+          );
         })}
       </ul>
     </>

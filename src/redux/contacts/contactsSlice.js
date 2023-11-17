@@ -12,7 +12,7 @@ import {
   createContacts,
   deleteContacts,
   getContacts,
-} from 'redux/operations/operations';
+} from 'redux/contacts/operations/operations';
 
 const STATUS = {
   PENDING: 'pending',
@@ -33,7 +33,6 @@ export const contactSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-
       .addCase(getContacts.fulfilled, handleFulfilledGet)
       .addCase(createContacts.fulfilled, handleFulfilledCreate)
       .addCase(deleteContacts.fulfilled, handleFulfilledDelete)
