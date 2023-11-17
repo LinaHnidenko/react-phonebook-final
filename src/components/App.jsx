@@ -4,6 +4,7 @@ import { Contacts } from './pages/Contacts';
 import { Home } from './pages/Home';
 import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { UserMenuPage } from './pages/UserMenuPage';
 
 export const App = () => {
   return (
@@ -13,6 +14,7 @@ export const App = () => {
         <Route path="contacts" element={<Contacts />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignUpPage />} />
+        <Route path="usermenu" element={<UserMenuPage />} />
       </Route>
     </Routes>
   );

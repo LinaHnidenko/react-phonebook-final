@@ -16,7 +16,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-const pages = ['Home', 'Contacts', 'SignUp'];
+const pages = ['Home', 'Contacts', 'UserMenu', 'SignUp', 'Login'];
 
 const theme = createTheme({
   palette: {
@@ -96,7 +96,15 @@ export const Header = () => {
               >
                 {pages.map(page => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                    <NavLink
+                      to={
+                        page.toLocaleLowerCase() === 'home'
+                          ? '/'
+                          : `/${page.toLocaleLowerCase()}`
+                      }
+                    >
+                      <Typography textAlign="center">{page}</Typography>
+                    </NavLink>
                   </MenuItem>
                 ))}
               </Menu>
@@ -140,14 +148,14 @@ export const Header = () => {
               ))}
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            {/* <Box sx={{ flexGrow: 0 }}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 <NavLink to="/login">Login</NavLink>
               </Button>
-            </Box>
+            </Box> */}
           </Toolbar>
         </Container>
       </AppBar>
