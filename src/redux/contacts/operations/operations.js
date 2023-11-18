@@ -1,17 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://654bdb6b5b38a59f28efd01f.mockapi.io';
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-
-// const setAuthHeader = token => {
-//   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-// };
-
-// // remove JWT
-// const clearAuthHeader = () => {
-//   axios.defaults.headers.common.Authorization = '';
-// };
 
 export const getContacts = createAsyncThunk(
   'contacts/fetchAll',

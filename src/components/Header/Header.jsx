@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from 'redux/auth/operations';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
 
 const pages = ['Home', 'Contacts', 'UserMenu', 'SignUp', 'Login'];
 
@@ -33,14 +34,13 @@ const theme = createTheme({
 });
 
 export const Header = () => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-  const [anchorElNav, setAnchorElNav] = useState(null);
-
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
     dispatch(logOut());
   };
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -60,7 +60,6 @@ export const Header = () => {
               variant="h6"
               noWrap
               component="a"
-              //   href="#app-bar-with-responsive-menu"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -109,17 +108,18 @@ export const Header = () => {
                       <Typography textAlign="center">Log Out</Typography>
                     </MenuItem>
                   ) : (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <NavLink
-                        to={
-                          page.toLocaleLowerCase() === 'home'
-                            ? '/'
-                            : `/${page.toLocaleLowerCase()}`
-                        }
-                      >
+                    <NavLink
+                      style={{ textDecoration: 'none' }}
+                      to={
+                        page.toLocaleLowerCase() === 'home'
+                          ? '/'
+                          : `/${page.toLocaleLowerCase()}`
+                      }
+                    >
+                      <MenuItem key={page} onClick={handleCloseNavMenu}>
                         <Typography textAlign="center">{page}</Typography>
-                      </NavLink>
-                    </MenuItem>
+                      </MenuItem>
+                    </NavLink>
                   )
                 )}
               </Menu>
@@ -129,7 +129,6 @@ export const Header = () => {
               variant="h5"
               noWrap
               component="a"
-              //   href="#app-bar-with-responsive-menu"
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -154,33 +153,25 @@ export const Header = () => {
                     Log Out
                   </Button>
                 ) : (
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={
+                      page.toLocaleLowerCase() === 'home'
+                        ? '/'
+                        : `/${page.toLocaleLowerCase()}`
+                    }
                   >
-                    <NavLink
-                      to={
-                        page.toLocaleLowerCase() === 'home'
-                          ? '/'
-                          : `/${page.toLocaleLowerCase()}`
-                      }
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
                     >
                       {page}
-                    </NavLink>
-                  </Button>
+                    </Button>
+                  </NavLink>
                 )
               )}
             </Box>
-
-            {/* <Box sx={{ flexGrow: 0 }}>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                <NavLink to="/login">Login</NavLink>
-              </Button>
-            </Box> */}
           </Toolbar>
         </Container>
       </AppBar>

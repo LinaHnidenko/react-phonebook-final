@@ -1,6 +1,6 @@
+import { TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setFilter } from 'redux/contacts/contactsSlice';
-import css from './Filter.module.css';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -12,16 +12,19 @@ export const Filter = () => {
 
   return (
     <>
-      <label className={css.filterlabel}>
-        Find contacts by name
-        <input
-          className={css.filterinput}
-          type="text"
-          onChange={handleFilterChange}
-          placeholder="Filter by name..."
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        ></input>
-      </label>
+      <TextField
+        label="Find contacts by name"
+        onChange={handleFilterChange}
+        required
+        variant="outlined"
+        color="secondary"
+        type="text"
+        sx={{ mb: 3 }}
+        fullWidth
+        name="name"
+        placeholder="Filter by name..."
+        pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+      />
     </>
   );
 };

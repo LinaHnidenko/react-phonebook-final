@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from 'redux/auth/operations';
@@ -15,16 +15,57 @@ export const SignUp = () => {
       password: e.target.elements.password.value,
     };
 
-    dispatch(signUp(newUser));
-    navigate('/login');
+    dispatch(signUp(newUser))
+      .unwrap()
+      .then(() => navigate('/login'));
   };
   return (
     <>
+      <Box
+        sx={{
+          border: 1,
+          borderColor: 'primary.main',
+          padding: '20px',
+          textAlign: 'center',
+          mb: '20px',
+        }}
+      >
+        <Typography
+          variant="h6"
+          component="h2"
+          sx={{
+            mr: 2,
+            display: { xs: 'none', md: 'flex' },
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            letterSpacing: '.3rem',
+            color: 'inherit',
+            textDecoration: 'none',
+          }}
+        >
+          Please, Enter your personal details and start journey with us🤗
+        </Typography>
+      </Box>
       <form onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
+        <Typography
+          variant="h4"
+          component="h2"
+          sx={{
+            mr: 2,
+            display: { xs: 'none', md: 'flex' },
+            fontFamily: 'monospace',
+            fontWeight: 700,
+            letterSpacing: '.3rem',
+            color: 'inherit',
+            textDecoration: 'none',
+            mb: '20px',
+          }}
+        >
+          Sign Up
+        </Typography>
+
         <TextField
           label="Name"
-          //   onChange={}
           required
           variant="outlined"
           color="secondary"
@@ -32,12 +73,9 @@ export const SignUp = () => {
           sx={{ mb: 3 }}
           fullWidth
           name="name"
-          // value={email}
-          //   error={emailError}
         />
         <TextField
           label="Email"
-          //   onChange={}
           required
           variant="outlined"
           color="secondary"
@@ -45,23 +83,34 @@ export const SignUp = () => {
           sx={{ mb: 3 }}
           fullWidth
           name="email"
-          //   value={email}
-          //   error={emailError}
         />
         <TextField
           label="Password"
-          //   onChange={}
           required
           variant="outlined"
           color="secondary"
           type="password"
-          //   value={password}
-          //   error={passwordError}
           fullWidth
           sx={{ mb: 3 }}
           name="password"
         />
-        <Button variant="outlined" color="secondary" type="submit">
+        <Button
+          variant="contained"
+          sx={{
+            background: 'linear-gradient(45deg, #06b1f5 30%, #002884 90%)',
+            borderRadius: '3px',
+            border: 0,
+            color: 'white',
+            height: '38px',
+            padding: '0 30px',
+            boxShadow: '0 3px 5px 2px #002884)',
+            transition: 'box-shadow 0.3s ease-in-out',
+            '&:hover': {
+              boxShadow: '0 6px 10px 4px #002884)',
+            },
+          }}
+          type="submit"
+        >
           Sign Up
         </Button>
       </form>
